@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Analytics Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GitHub Analytics Dashboard</h1>
+            <p>Copilot Engagement & Pull Requests - Last 30 Days</p>
+        </header>
+
+        <div class="config-section">
+            <div class="input-group">
+                <label for="organization">Organization:</label>
+                <input type="text" id="organization" placeholder="Enter GitHub organization name" value="microsoft">
+            </div>
+            <div class="input-group">
+                <label for="token">GitHub Token (optional):</label>
+                <input type="password" id="token" placeholder="GitHub Personal Access Token for higher rate limits">
+            </div>
+            <button id="loadData" class="load-btn">Load Dashboard</button>
+        </div>
+
+        <div class="dashboard" id="dashboard" style="display: none;">
+            <div class="chart-container">
+                <div class="chart-wrapper">
+                    <h2>Pull Requests (Last 30 Days)</h2>
+                    <div class="chart-info">
+                        <span id="prTotal" class="metric">Total: -</span>
+                        <span id="prAverage" class="metric">Daily Avg: -</span>
+                    </div>
+                    <canvas id="pullRequestsChart"></canvas>
+                </div>
+                
+                <div class="chart-wrapper">
+                    <h2>Copilot Engagement (Last 30 Days)</h2>
+                    <div class="chart-info">
+                        <span id="copilotTotal" class="metric">Total Actions: -</span>
+                        <span id="copilotAcceptance" class="metric">Acceptance Rate: -</span>
+                    </div>
+                    <canvas id="copilotChart"></canvas>
+                </div>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading data...</p>
+            </div>
+
+            <div class="error" id="error" style="display: none;">
+                <h3>Error Loading Data</h3>
+                <p id="errorMessage"></p>
+                <button onclick="retryLoad()" class="retry-btn">Retry</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>Data source: GitHub API | Last updated: <span id="lastUpdated">-</span></p>
+        </footer>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="charts.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
